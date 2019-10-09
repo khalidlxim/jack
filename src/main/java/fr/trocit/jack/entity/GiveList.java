@@ -16,5 +16,6 @@ public class GiveList extends GenericEntity {
 	
 	@JsonIgnore // TODO Remove this
 	@OneToMany(mappedBy="idList")
+	
 	public List<Item> items = new ArrayList<>();
 }

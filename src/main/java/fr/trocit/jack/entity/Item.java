@@ -18,4 +18,6 @@ public class Item extends GenericEntity {
 	
 	
 	public List<Category> categories = new ArrayList<>();
+	
+	public String status;
 }

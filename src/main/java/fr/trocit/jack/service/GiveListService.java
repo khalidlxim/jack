@@ -5,25 +5,25 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import fr.trocit.jack.entity.Usr;
+import fr.trocit.jack.entity.GiveList;
 import fr.trocit.jack.repository.CommonRepository;
 
 @Service
-public class UsrService {
+public class GiveListService {
 	
-	@Autowired CommonRepository<Usr> repo;
+	@Autowired CommonRepository<GiveList> repo;
 	
-	public List<Usr> getAll() {
+	public List<GiveList> getAll() {
 		return repo.findAll();
 	}
 	
-	public Usr getById(int id) {
+	public GiveList getById(int id) {
 		return repo.getById(id);
 	}
 	
-	public int create(Usr usr) {
-		Usr updatedUsr = repo.save(usr);
-		return updatedUsr.id;
+	public int create(GiveList list) {
+		GiveList updatedList = repo.save(list);
+		return updatedList.id;
 	}
 	
 	public void remove(int id) {

@@ -5,25 +5,25 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import fr.trocit.jack.entity.Item;
+import fr.trocit.jack.entity.Category;
 import fr.trocit.jack.repository.CommonRepository;
 
 @Service
-public class ItemService {
+public class CategoryService {
 
-	@Autowired CommonRepository<Item> repo;
+	@Autowired CommonRepository<Category> repo;
 	
-	public List<Item> getAll() {
+	public List<Category> getAll() {
 		return repo.findAll();
 	}
 	
-	public Item getById(int id) {
+	public Category getById(int id) {
 		return repo.getById(id);
 	}
 	
-	public int create(Item item) {
-		Item updatedItem = repo.save(item);
-		return updatedItem.id;
+	public int create(Category category) {
+		Category updatedCategory = repo.save(category);
+		return updatedCategory.id;
 	}
 	
 	public void remove(int id) {

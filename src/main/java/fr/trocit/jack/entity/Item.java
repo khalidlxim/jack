@@ -16,15 +16,13 @@ public class Item extends GenericEntity {
 	private String title;
 	private String photo;
 	private String description;
-	
-	
 	private int idGiveList;
-	
 	
 	private List<String> categories = new ArrayList<>();
 	
 	private String status;
 
+	
 	public String getTitle() {
 		return title;
 	}
@@ -83,7 +81,7 @@ public class Item extends GenericEntity {
 		itemNode.put("title", this.title);
 		itemNode.put("photo", this.photo);
 		itemNode.put("description", this.description);
-		itemNode.put("idGiveList", this.id);
+		itemNode.put("idGiveList", this.idGiveList);
 		itemNode.putArray("categories");
 		
 		for (String category:this.categories) {

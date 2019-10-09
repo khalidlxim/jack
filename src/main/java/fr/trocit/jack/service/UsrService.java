@@ -14,7 +14,7 @@ public class UsrService {
 	@Autowired CommonRepository<Usr> repo;
 	
 	public List<Usr> getAll() {
-		return repo.findAll();
+		return repo.getAll();
 	}
 	
 	public Usr getById(int id) {
@@ -27,7 +27,7 @@ public class UsrService {
 	}
 	
 	public void remove(int id) {
-		repo.deleteById(id);
+		repo.delete(id);
 	}
 
 }

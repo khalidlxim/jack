@@ -27,7 +27,7 @@ public class ItemService {
 	}
 	
 	public void remove(int id) {
-		repo.deleteById(id);
+		repo.delete(id);
 	}
 	
 }

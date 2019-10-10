@@ -18,9 +18,9 @@ public class Item extends GenericEntity {
 	private String description;
 	private int idGiveList;
 	
-	private List<String> categories = new ArrayList<>();
+	private List<String> categories = new ArrayList<String>();
 	
-	private String status;
+	private List<Usr> likers = new ArrayList<>();
 
 	
 	public String getTitle() {
@@ -62,20 +62,23 @@ public class Item extends GenericEntity {
 	public void setCategories(List<String> categories) {
 		this.categories = categories;
 	}
+	
 
-	public String getStatus() {
-		return status;
+	public List<Usr> getLikers() {
+		return likers;
 	}
 
-	public void setStatus(String status) {
-		this.status = status;
+	public void setLikers(List<Usr> likers) {
+		this.likers = likers;
 	}
+
 	
 	public ObjectNode toJsonNode() {
 		
 		ObjectMapper mapper = new ObjectMapper();
 		ObjectNode itemNode = mapper.createObjectNode();
 		ArrayNode categoryArrayNode = mapper.createArrayNode();
+		ArrayNode likerArrayNode = mapper.createArrayNode();
 		
 		itemNode.put("id", this.id);
 		itemNode.put("title", this.title);
@@ -89,7 +92,12 @@ public class Item extends GenericEntity {
 		}
 		itemNode.set("categories", categoryArrayNode);
 		
-		itemNode.put("status", this.status);
+		itemNode.putArray("likers");
+		
+		for (Usr liker:this.likers) {
+			likerArrayNode.add(liker.toJsonNode());
+		}
+		itemNode.set("likers", likerArrayNode);
 		
 		return itemNode;
 	}

@@ -9,8 +9,8 @@ import fr.trocit.jack.entity.GiveList;
 @Repository
 public class GiveListRepository extends CommonRepository<GiveList> {
 
-	public GiveListRepository(Class<GiveList> domainClass, EntityManager entityManager) {
-		super(domainClass, entityManager);
+	public GiveListRepository(EntityManager entityManager) {
+		super(GiveList.class, entityManager);
 		// TODO Auto-generated constructor stub
 	}
 

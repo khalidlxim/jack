@@ -3,17 +3,20 @@ package fr.trocit.jack.entity;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinTable;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
 @Entity
+@Table(name="usr")
 public class Usr extends GenericEntity {
 
 	private String username;
@@ -24,6 +27,7 @@ public class Usr extends GenericEntity {
 	private String town;
 	
 	@OneToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name="gl_id")
 	private GiveList giveList;
 	
 	@ManyToMany
@@ -32,6 +36,9 @@ public class Usr extends GenericEntity {
 			joinColumns = @JoinColumn(name = "usr_id"),
 			inverseJoinColumns = @JoinColumn(name = "item_id"))
 	private List<Item> likedItems;
+	
+	
+	
 
 	public String getUsername() {
 		return username;

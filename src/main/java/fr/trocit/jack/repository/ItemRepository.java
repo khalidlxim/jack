@@ -9,8 +9,8 @@ import fr.trocit.jack.entity.Item;
 @Repository
 public class ItemRepository extends CommonRepository<Item> {
 
-	public ItemRepository(Class<Item> domainClass, EntityManager entityManager) {
-		super(domainClass, entityManager);
+	public ItemRepository(EntityManager entityManager) {
+		super(Item.class, entityManager);
 		// TODO Auto-generated constructor stub
 	}
 

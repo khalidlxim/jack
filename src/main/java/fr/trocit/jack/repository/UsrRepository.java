@@ -9,8 +9,8 @@ import fr.trocit.jack.entity.Usr;
 @Repository
 public class UsrRepository extends CommonRepository<Usr> {
 
-	public UsrRepository(Class<Usr> domainClass, EntityManager entityManager) {
-		super(domainClass, entityManager);
+	public UsrRepository(EntityManager entityManager) {
+		super(Usr.class, entityManager);
 		// TODO Auto-generated constructor stub
 	}
 

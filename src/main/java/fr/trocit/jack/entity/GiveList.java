@@ -4,27 +4,32 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
 @Entity
-
+@Table(name="givelist")
 public class GiveList extends GenericEntity {
 
-	private int idOwner;
+	@OneToOne
+	@JoinColumn(name="usr_id")
+	private Usr owner;
 
-	@OneToMany(mappedBy="giveList")
+	@OneToMany(mappedBy="list")
 	private List<Item> usrItems = new ArrayList<>();
 
-	public int getIdOwner() {
-		return idOwner;
+	public Usr getIdOwner() {
+		return owner;
 	}
 
-	public void setIdOwner(int idOwner) {
-		this.idOwner = idOwner;
+	public void setIdOwner(Usr owner) {
+		this.owner = owner;
 	}
 
 	public List<Item> getItems() {
@@ -42,7 +47,9 @@ public class GiveList extends GenericEntity {
 		ArrayNode itemArrayNode = mapper.createArrayNode();
 		
 		listNode.put("id", this.id);
-		listNode.put("idOwner", this.idOwner);
+		
+		listNode.putArray("owner");
+		listNode.set("owner", this.owner.toJsonNode());
 		
 		listNode.putArray("items");
 		

@@ -5,15 +5,17 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
 @Entity
-
+@Table(name="item")
 public class Item extends GenericEntity {
 
 	private String title;
@@ -21,7 +23,8 @@ public class Item extends GenericEntity {
 	private String description;
 	
 	@ManyToOne(cascade=CascadeType.ALL)
-	private GiveList giveList;
+	@JoinColumn(name="gl_id")
+	private GiveList list;
 	
 	private ArrayList<String> categories = new ArrayList<String>();
 	
@@ -53,12 +56,12 @@ public class Item extends GenericEntity {
 		this.description = description;
 	}
 
-	public GiveList getIdList() {
-		return giveList;
+	public GiveList getlist() {
+		return list;
 	}
 
-	public void setIdList(GiveList giveList) {
-		this.giveList = giveList;
+	public void setlist(GiveList giveList) {
+		this.list = giveList;
 	}
 
 	public ArrayList<String> getCategories() {
@@ -90,8 +93,8 @@ public class Item extends GenericEntity {
 		itemNode.put("title", this.title);
 		itemNode.put("photo", this.photo);
 		itemNode.put("description", this.description);
-		itemNode.putArray("giveList");
-		itemNode.set("giveList", this.giveList.toJsonNode());
+		itemNode.putArray("list");
+		itemNode.set("list", this.list.toJsonNode());
 		itemNode.putArray("categories");
 		
 		for (String category:this.categories) {

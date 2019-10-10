@@ -14,7 +14,7 @@ public class GiveList extends GenericEntity {
 
 	private int idOwner;
 
-	private List<Item> items = new ArrayList<>();
+	private List<Item> usrItems = new ArrayList<>();
 
 	public int getIdOwner() {
 		return idOwner;
@@ -25,11 +25,11 @@ public class GiveList extends GenericEntity {
 	}
 
 	public List<Item> getItems() {
-		return items;
+		return usrItems;
 	}
 
 	public void setItems(List<Item> items) {
-		this.items = items;
+		this.usrItems = items;
 	}
 	
 	public ObjectNode toJsonNode() {
@@ -43,7 +43,7 @@ public class GiveList extends GenericEntity {
 		
 		listNode.putArray("items");
 		
-		for(Item item:this.items) {
+		for(Item item:this.usrItems) {
 			itemArrayNode.add(item.toJsonNode());
 		}
 		

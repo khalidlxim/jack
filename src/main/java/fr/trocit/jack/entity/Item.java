@@ -3,7 +3,10 @@ package fr.trocit.jack.entity;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
@@ -16,10 +19,13 @@ public class Item extends GenericEntity {
 	private String title;
 	private String photo;
 	private String description;
-	private int idGiveList;
 	
-	private List<String> categories = new ArrayList<String>();
+	@ManyToOne(cascade=CascadeType.ALL)
+	private GiveList giveList;
 	
+	private ArrayList<String> categories = new ArrayList<String>();
+	
+	@ManyToMany(mappedBy = "likedItems")
 	private List<Usr> likers = new ArrayList<>();
 
 	
@@ -47,19 +53,19 @@ public class Item extends GenericEntity {
 		this.description = description;
 	}
 
-	public int getIdList() {
-		return idGiveList;
+	public GiveList getIdList() {
+		return giveList;
 	}
 
-	public void setIdList(int idList) {
-		this.idGiveList = idList;
+	public void setIdList(GiveList giveList) {
+		this.giveList = giveList;
 	}
 
-	public List<String> getCategories() {
+	public ArrayList<String> getCategories() {
 		return categories;
 	}
 
-	public void setCategories(List<String> categories) {
+	public void setCategories(ArrayList<String> categories) {
 		this.categories = categories;
 	}
 	
@@ -84,7 +90,8 @@ public class Item extends GenericEntity {
 		itemNode.put("title", this.title);
 		itemNode.put("photo", this.photo);
 		itemNode.put("description", this.description);
-		itemNode.put("idGiveList", this.idGiveList);
+		itemNode.putArray("giveList");
+		itemNode.set("giveList", this.giveList.toJsonNode());
 		itemNode.putArray("categories");
 		
 		for (String category:this.categories) {

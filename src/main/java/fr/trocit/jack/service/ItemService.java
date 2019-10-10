@@ -14,19 +14,19 @@ public class ItemService {
 	@Autowired CommonRepository<Item> repo;
 	
 	public List<Item> getAll() {
-		return repo.findAll();
+		return repo.getAll();
 	}
 	
 	public Item getById(int id) {
 		return repo.getById(id);
 	}
 	
-	public int create(Item item) {
+	public int save(Item item) {
 		Item updatedItem = repo.save(item);
 		return updatedItem.id;
 	}
 	
-	public void remove(int id) {
+	public void delete(int id) {
 		repo.delete(id);
 	}
 	

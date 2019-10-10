@@ -14,19 +14,19 @@ public class GiveListService {
 	@Autowired CommonRepository<GiveList> repo;
 	
 	public List<GiveList> getAll() {
-		return repo.findAll();
+		return repo.getAll();
 	}
 	
 	public GiveList getById(int id) {
 		return repo.getById(id);
 	}
 	
-	public int create(GiveList list) {
+	public int save(GiveList list) {
 		GiveList updatedList = repo.save(list);
 		return updatedList.id;
 	}
 	
-	public void remove(int id) {
+	public void delete(int id) {
 		repo.delete(id);
 	}
 

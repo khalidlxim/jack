@@ -14,19 +14,19 @@ public class UsrService {
 	@Autowired CommonRepository<Usr> repo;
 	
 	public List<Usr> getAll() {
-		return repo.getAll();
+		return repo.findAll();
 	}
 	
 	public Usr getById(int id) {
 		return repo.getById(id);
 	}
 	
-	public int create(Usr usr) {
+	public int save(Usr usr) {
 		Usr updatedUsr = repo.save(usr);
 		return updatedUsr.id;
 	}
 	
-	public void remove(int id) {
+	public void delete(int id) {
 		repo.delete(id);
 	}
 

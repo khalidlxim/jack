@@ -24,11 +24,11 @@ public class GiveList extends GenericEntity {
 	@OneToMany(mappedBy="list")
 	private List<Item> usrItems = new ArrayList<>();
 
-	public Usr getIdOwner() {
+	public Usr getOwner() {
 		return owner;
 	}
 
-	public void setIdOwner(Usr owner) {
+	public void setOwner(Usr owner) {
 		this.owner = owner;
 	}
 

@@ -26,8 +26,8 @@ public class ItemService {
 		return updatedItem.id;
 	}
 	
-	public void delete(int id) {
-		repo.delete(id);
+	public void delete(Item item) {
+		repo.delete(item);
 	}
 	
 }

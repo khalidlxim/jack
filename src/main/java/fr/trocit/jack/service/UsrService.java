@@ -14,7 +14,7 @@ public class UsrService {
 	@Autowired CommonRepository<Usr> repo;
 	
 	public List<Usr> getAll() {
-		return repo.findAll();
+		return repo.getAll();
 	}
 	
 	public Usr getById(int id) {
@@ -22,12 +22,15 @@ public class UsrService {
 	}
 	
 	public int save(Usr usr) {
-		Usr updatedUsr = repo.save(usr);
+		Usr updatedUsr = repo.save(usr);	
 		return updatedUsr.id;
 	}
 	
-	public void delete(int id) {
-		repo.delete(id);
+	public void delete(Usr usr) {
+		repo.delete(usr);
 	}
-
+	
+	public boolean existUsr(Usr usr) { 
+	return repo.existsById(usr.id);
+	}
 }

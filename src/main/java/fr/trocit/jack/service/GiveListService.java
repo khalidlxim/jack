@@ -26,8 +26,8 @@ public class GiveListService {
 		return updatedList.id;
 	}
 	
-	public void delete(int id) {
-		repo.delete(id);
+	public void delete(GiveList list) {
+		repo.delete(list);
 	}
 
 }

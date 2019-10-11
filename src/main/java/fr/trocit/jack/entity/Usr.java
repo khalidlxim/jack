@@ -3,7 +3,6 @@ package fr.trocit.jack.entity;
 import java.util.List;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinTable;
 import javax.persistence.JoinColumn;
@@ -107,28 +106,23 @@ public class Usr extends GenericEntity {
 		
 		ObjectMapper mapper = new ObjectMapper();
 		ObjectNode usrNode = mapper.createObjectNode();
-		ArrayNode giveListArrayNode = mapper.createArrayNode();
-		ArrayNode likedItemArrayNode = mapper.createArrayNode();
 		
 		usrNode.put("id", this.id);
 		usrNode.put("username", this.username);
 		usrNode.put("password", this.password);
-		usrNode.put("avatar", this.avatar);
-		usrNode.put("email", this.email);
-		usrNode.put("phone", this.phone);
-		usrNode.put("town", this.town);
-		
-		usrNode.putArray("giveList");
-		giveListArrayNode.add(this.giveList.toJsonNode());
-		usrNode.set("giveList", giveListArrayNode);
-		
-		usrNode.putArray("categories");
-		
-		for (Item item:this.likedItems) {
-			likedItemArrayNode.add(item.toJsonNode());
-		}
-		usrNode.set("categories", likedItemArrayNode);
-		
+//		usrNode.put("avatar", this.avatar);
+//		usrNode.put("email", this.email);
+//		usrNode.put("phone", this.phone);
+//		usrNode.put("town", this.town);
+//		
+//		ArrayNode giveListArrayNode = usrNode.putArray("giveList");
+//		giveListArrayNode.add(this.giveList.toJsonNode());
+//		
+//		ArrayNode likedItemArrayNode = usrNode.putArray("categories");
+//		for (Item item:this.likedItems) {
+//			likedItemArrayNode.add(item.toJsonNode());
+//		}
+//		
 		return usrNode;
 	}
 }

@@ -27,10 +27,10 @@ public class CommonRepository<T extends GenericEntity> extends SimpleJpaReposito
 		return findAll();
 	}
 	
-	public void delete(int id) {
-		T t = getById(id);
-		em.remove(t);
-	}
+//	public void delete(int id) {
+//		T t = getById(id);
+//		em.remove(t);
+//	}
 	
 	public void delete(T entity) {
 		em.remove(entity);

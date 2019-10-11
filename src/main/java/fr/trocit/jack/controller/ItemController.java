@@ -18,24 +18,24 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
-import fr.trocit.jack.entity.Usr;
-import fr.trocit.jack.service.UsrService;
+import fr.trocit.jack.entity.Item;
+import fr.trocit.jack.service.ItemService;
 
 @RestController
-@RequestMapping("users")
-public class UsrController {
+@RequestMapping("users/{usrId}/items")
+public class ItemController {
 	
-	@Autowired UsrService serv;
+	@Autowired ItemService serv;
 	
 	@GetMapping("")
 	public ResponseEntity<ArrayNode> getAll() {
 		ObjectMapper mapper = new ObjectMapper();
 		ArrayNode displayList = mapper.createArrayNode();
 		
-		List<Usr> listAll = serv.getAll();
+		List<Item> listAll = serv.getAll();
 		
-		for(Usr usr:listAll) {
-			displayList.add(usr.toJsonNode());
+		for(Item item:listAll) {
+			displayList.add(item.toJsonNode());
 		}
 		
 		return new ResponseEntity<ArrayNode>(displayList, HttpStatus.OK);
@@ -43,9 +43,9 @@ public class UsrController {
 	
 	@GetMapping("/{id}")
 	public ResponseEntity<ObjectNode> getById(@PathVariable int id) {
-		Usr usr = serv.getById(id);
-		if(usr==null) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		return new ResponseEntity<>(usr.toJsonNode(), HttpStatus.OK);
+		Item item = serv.getById(id);
+		if(item==null) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		return new ResponseEntity<>(item.toJsonNode(), HttpStatus.OK);
 	}
 	
 	@PostMapping
@@ -83,4 +83,5 @@ public class UsrController {
 		serv.delete(currentUsr);
 		return new ResponseEntity<>("L'utilisateur a bien été supprimmé", HttpStatus.OK);
 	}
+
 }

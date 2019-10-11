@@ -44,44 +44,42 @@ public class ItemController {
 	@GetMapping("/{id}")
 	public ResponseEntity<ObjectNode> getById(@PathVariable int id) {
 		Item item = serv.getById(id);
-		if(item==null) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		if(item==null) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
 		return new ResponseEntity<>(item.toJsonNode(), HttpStatus.OK);
 	}
 	
 	@PostMapping
-	public ResponseEntity<Integer> createUsr(@RequestBody Usr usr) {
-		int id = serv.save(usr);
+	public ResponseEntity<Integer> createItem(@RequestBody Item item) {
+		int id = serv.save(item);
 		return new ResponseEntity<>(id, HttpStatus.CREATED);
 	}
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<Integer> updateUsr(@RequestBody Usr newUsr, @PathVariable int id) {
+	public ResponseEntity<Integer> updateItem(@RequestBody Item newItem, @PathVariable int id) {
 		if(serv.getById(id)==null) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		
-		Usr currentUsr = serv.getById(id);
+		Item currentItem = serv.getById(id);
 		
-		currentUsr.setUsername(newUsr.getUsername());
-		currentUsr.setPassword(newUsr.getPassword());
-		currentUsr.setAvatar(newUsr.getAvatar());
-		currentUsr.setEmail(newUsr.getEmail());
-		currentUsr.setPhone(newUsr.getPhone());
-		currentUsr.setTown(newUsr.getTown());
-		currentUsr.setGiveList(newUsr.getGiveList());
-		currentUsr.setLikedItems(newUsr.getLikedItems());
+		currentItem.setTitle(newItem.getTitle());
+		currentItem.setPhoto(newItem.getPhoto());
+		currentItem.setDescription(newItem.getDescription());
+		currentItem.setCategories(newItem.getCategories());
+		currentItem.setLikers(newItem.getLikers());
 		
-		serv.save(currentUsr);
+		serv.save(currentItem);
 		
 		return new ResponseEntity<>(id, HttpStatus.OK);
 	}
 	
 	
-	
 	@DeleteMapping("/{id}")
 	public ResponseEntity<String> deleteUsr(@PathVariable int id) {
-		Usr currentUsr = serv.getById(id);
-		if(!serv.existUsr(currentUsr)) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		serv.delete(currentUsr);
-		return new ResponseEntity<>("L'utilisateur a bien été supprimmé", HttpStatus.OK);
+		Item currentItem = serv.getById(id);
+		if(!serv.existItem(currentItem)) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		serv.delete(currentItem);
+		return new ResponseEntity<>("L'item a bien été supprimmé", HttpStatus.OK);
 	}
 
 }

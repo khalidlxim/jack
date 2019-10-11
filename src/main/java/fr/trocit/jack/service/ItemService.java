@@ -29,5 +29,9 @@ public class ItemService {
 	public void delete(Item item) {
 		repo.delete(item);
 	}
+
+	public boolean existItem(Item currentItem) {
+		return repo.existsById(currentItem.id);
+	}
 	
 }

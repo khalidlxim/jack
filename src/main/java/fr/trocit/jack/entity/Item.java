@@ -86,8 +86,6 @@ public class Item extends GenericEntity {
 		
 		ObjectMapper mapper = new ObjectMapper();
 		ObjectNode itemNode = mapper.createObjectNode();
-		ArrayNode categoryArrayNode = mapper.createArrayNode();
-		ArrayNode likerArrayNode = mapper.createArrayNode();
 		
 		itemNode.put("id", this.id);
 		itemNode.put("title", this.title);
@@ -95,19 +93,18 @@ public class Item extends GenericEntity {
 		itemNode.put("description", this.description);
 		itemNode.putArray("list");
 		itemNode.set("list", this.list.toJsonNode());
-		itemNode.putArray("categories");
+		
+		ArrayNode categoryArrayNode = itemNode.putArray("categories");
 		
 		for (String category:this.categories) {
 			categoryArrayNode.add(category);
 		}
-		itemNode.set("categories", categoryArrayNode);
 		
-		itemNode.putArray("likers");
+		ArrayNode likerArrayNode = itemNode.putArray("likers");
 		
 		for (Usr liker:this.likers) {
 			likerArrayNode.add(liker.toJsonNode());
 		}
-		itemNode.set("likers", likerArrayNode);
 		
 		return itemNode;
 	}

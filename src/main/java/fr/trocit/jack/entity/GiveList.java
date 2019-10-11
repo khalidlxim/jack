@@ -44,20 +44,17 @@ public class GiveList extends GenericEntity {
 		
 		ObjectMapper mapper = new ObjectMapper();
 		ObjectNode listNode = mapper.createObjectNode();
-		ArrayNode itemArrayNode = mapper.createArrayNode();
 		
 		listNode.put("id", this.id);
 		
 		listNode.putArray("owner");
 		listNode.set("owner", this.owner.toJsonNode());
 		
-		listNode.putArray("items");
+		ArrayNode itemArrayNode = listNode.putArray("items");
 		
 		for(Item item:this.usrItems) {
 			itemArrayNode.add(item.toJsonNode());
 		}
-		
-		listNode.set("items", itemArrayNode);
 		
 		return listNode;
 	}

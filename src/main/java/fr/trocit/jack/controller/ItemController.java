@@ -1,5 +1,6 @@
 package fr.trocit.jack.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,9 @@ import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import fr.trocit.jack.entity.Item;
+import fr.trocit.jack.entity.Usr;
 import fr.trocit.jack.service.ItemService;
+import fr.trocit.jack.service.UsrService;
 
 @RestController
 @CrossOrigin(origins="http://localhost:4200")
@@ -28,6 +31,7 @@ import fr.trocit.jack.service.ItemService;
 public class ItemController {
 	
 	@Autowired ItemService serv;
+	@Autowired UsrService usrServ;
 	
 	@GetMapping("")
 	public ResponseEntity<ArrayNode> getAll() {
@@ -53,8 +57,14 @@ public class ItemController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<Integer> createItem(@RequestBody Item item) {
+	public ResponseEntity<Integer> createItem(@RequestBody Item item, @PathVariable int usrId) {
+		
+		item.setlist(usrServ.getById(usrId).getGiveList());
+		
+		item.setLikers(new ArrayList<Usr>());
+		
 		int id = serv.save(item);
+		
 		return new ResponseEntity<>(id, HttpStatus.CREATED);
 	}
 	
@@ -68,7 +78,6 @@ public class ItemController {
 		currentItem.setPhoto(newItem.getPhoto());
 		currentItem.setDescription(newItem.getDescription());
 		currentItem.setCategories(newItem.getCategories());
-		currentItem.setLikers(newItem.getLikers());
 		
 		serv.save(currentItem);
 		

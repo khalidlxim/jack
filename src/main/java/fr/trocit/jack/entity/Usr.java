@@ -110,11 +110,11 @@ public class Usr extends GenericEntity {
 		usrNode.put("id", this.id);
 		usrNode.put("username", this.username);
 		usrNode.put("password", this.password);
-//		usrNode.put("avatar", this.avatar);
-//		usrNode.put("email", this.email);
-//		usrNode.put("phone", this.phone);
-//		usrNode.put("town", this.town);
-//		
+		usrNode.put("avatar", this.avatar);
+		usrNode.put("email", this.email);
+		usrNode.put("phone", this.phone);
+		usrNode.put("town", this.town);
+		
 //		ArrayNode giveListArrayNode = usrNode.putArray("giveList");
 //		giveListArrayNode.add(this.giveList.toJsonNode());
 //		

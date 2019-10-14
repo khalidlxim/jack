@@ -1,5 +1,6 @@
 package fr.trocit.jack.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,9 +20,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
+
+import fr.trocit.jack.repository.AbstractItemRepository;
+import fr.trocit.jack.entity.GiveList;
 import fr.trocit.jack.entity.Item;
 import fr.trocit.jack.entity.Usr;
-import fr.trocit.jack.repository.AbstractItemRepository;
+import fr.trocit.jack.service.GiveListService;
 import fr.trocit.jack.service.UsrService;
 
 @RestController
@@ -30,7 +34,11 @@ import fr.trocit.jack.service.UsrService;
 public class UsrController {
 	
 	@Autowired UsrService serv;
+
 	@Autowired AbstractItemRepository irepo;
+
+	@Autowired GiveListService listServ;
+
 	
 	@GetMapping("")
 	public ResponseEntity<ArrayNode> getAll() {
@@ -55,7 +63,18 @@ public class UsrController {
 	
 	@PostMapping
 	public ResponseEntity<Integer> createUsr(@RequestBody Usr usr) {
+		
+		GiveList list = new GiveList();
+		
+		usr.setGiveList(list);
+		usr.setLikedItems(new ArrayList<Item>());
+		
 		int id = serv.save(usr);
+		
+		list.setOwner(usr);
+		
+		listServ.save(list);
+		
 		return new ResponseEntity<>(id, HttpStatus.CREATED);
 	}
 	
@@ -71,8 +90,6 @@ public class UsrController {
 		currentUsr.setEmail(newUsr.getEmail());
 		currentUsr.setPhone(newUsr.getPhone());
 		currentUsr.setTown(newUsr.getTown());
-		currentUsr.setGiveList(newUsr.getGiveList());
-		currentUsr.setLikedItems(newUsr.getLikedItems());
 		
 		serv.save(currentUsr);
 		

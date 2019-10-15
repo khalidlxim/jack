@@ -28,6 +28,7 @@ import fr.trocit.jack.entity.Item;
 import fr.trocit.jack.entity.Usr;
 import fr.trocit.jack.repository.AbstractUsrRepository;
 import fr.trocit.jack.service.GiveListService;
+import fr.trocit.jack.service.ItemService;
 import fr.trocit.jack.service.UsrService;
 
 @RestController
@@ -37,6 +38,7 @@ public class UsrController {
 	
 	@Autowired UsrService serv;
 	@Autowired GiveListService listServ;
+	@Autowired ItemService iServ;
 	@Autowired AbstractUsrRepository usrRepo;
 	
 	@GetMapping("")
@@ -103,7 +105,15 @@ public class UsrController {
 	public ResponseEntity<String> deleteUsr(@PathVariable int id) {
 		Usr currentUsr = serv.getById(id);
 		if(!serv.existUsr(currentUsr)) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		
+		if(!currentUsr.getGiveList().getItems().isEmpty()) {
+			for (Item item:currentUsr.getGiveList().getItems()) {
+				iServ.delete(item);
+			}
+		}
+		
 		listServ.delete(currentUsr.getGiveList());
+		
 		serv.delete(currentUsr);
 		return new ResponseEntity<>("L'utilisateur a bien été supprimmé", HttpStatus.OK);
 	}

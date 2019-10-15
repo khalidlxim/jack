@@ -19,6 +19,7 @@ import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import fr.trocit.jack.entity.Item;
+import fr.trocit.jack.repository.AbstractItemRepository;
 import fr.trocit.jack.service.ItemService;
 
 @RestController
@@ -26,6 +27,7 @@ import fr.trocit.jack.service.ItemService;
 public class ItemController {
 	
 	@Autowired ItemService serv;
+	@Autowired AbstractItemRepository irepo;
 	
 	@GetMapping("")
 	public ResponseEntity<ArrayNode> getAll() {

@@ -18,7 +18,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
+import fr.trocit.jack.entity.Item;
 import fr.trocit.jack.entity.Usr;
+import fr.trocit.jack.repository.AbstractItemRepository;
 import fr.trocit.jack.service.UsrService;
 
 @RestController
@@ -26,6 +28,7 @@ import fr.trocit.jack.service.UsrService;
 public class UsrController {
 	
 	@Autowired UsrService serv;
+	@Autowired AbstractItemRepository irepo;
 	
 	@GetMapping("")
 	public ResponseEntity<ArrayNode> getAll() {
@@ -82,5 +85,10 @@ public class UsrController {
 		if(!serv.existUsr(currentUsr)) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		serv.delete(currentUsr);
 		return new ResponseEntity<>("L'utilisateur a bien été supprimmé", HttpStatus.OK);
+	}
+	
+	@GetMapping("/{id}/sql")
+	public List<Item> displayItem1(){
+		return irepo.displayItems();
 	}
 }

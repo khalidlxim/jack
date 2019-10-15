@@ -115,14 +115,17 @@ public class Usr extends GenericEntity {
 		usrNode.put("phone", this.phone);
 		usrNode.put("town", this.town);
 		
-//		ArrayNode giveListArrayNode = usrNode.putArray("giveList");
-//		giveListArrayNode.add(this.giveList.toJsonNode());
-//		
-//		ArrayNode likedItemArrayNode = usrNode.putArray("categories");
-//		for (Item item:this.likedItems) {
-//			likedItemArrayNode.add(item.toJsonNode());
-//		}
-//		
+		ArrayNode giveListArrayNode = usrNode.putArray("giveList");
+		giveListArrayNode.add(this.giveList.toJsonNode());
+		
+		ArrayNode likedItemArrayNode = usrNode.putArray("likedItems");
+		
+		for (Item item:this.likedItems) {
+			if(item!=null) {
+				likedItemArrayNode.add(item.toJsonNode());
+			}
+		}
+		
 		return usrNode;
 	}
 }

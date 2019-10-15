@@ -20,6 +20,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
+import fr.trocit.jack.entity.GiveList;
 import fr.trocit.jack.entity.Item;
 import fr.trocit.jack.entity.Usr;
 import fr.trocit.jack.service.ItemService;
@@ -59,11 +60,19 @@ public class ItemController {
 	@PostMapping
 	public ResponseEntity<Integer> createItem(@RequestBody Item item, @PathVariable int usrId) {
 		
-		item.setlist(usrServ.getById(usrId).getGiveList());
+		GiveList giveList = usrServ.getById(usrId).getGiveList();
+		
+		item.setlist(giveList); //TODO create a method in GiveList class to add an item to its List of Items
 		
 		item.setLikers(new ArrayList<Usr>());
 		
 		int id = serv.save(item);
+		
+		List<Item> updatingList = giveList.getItems();
+		
+		updatingList.add(item);
+		
+		giveList.setItems(updatingList);
 		
 		return new ResponseEntity<>(id, HttpStatus.CREATED);
 	}

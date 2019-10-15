@@ -2,8 +2,11 @@ package fr.trocit.jack.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.json.JsonParser;
+import org.springframework.boot.json.JsonParserFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -23,6 +26,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import fr.trocit.jack.entity.GiveList;
 import fr.trocit.jack.entity.Item;
 import fr.trocit.jack.entity.Usr;
+import fr.trocit.jack.repository.AbstractUsrRepository;
 import fr.trocit.jack.service.GiveListService;
 import fr.trocit.jack.service.UsrService;
 
@@ -33,6 +37,7 @@ public class UsrController {
 	
 	@Autowired UsrService serv;
 	@Autowired GiveListService listServ;
+	@Autowired AbstractUsrRepository usrRepo;
 	
 	@GetMapping("")
 	public ResponseEntity<ArrayNode> getAll() {
@@ -101,5 +106,14 @@ public class UsrController {
 		listServ.delete(currentUsr.getGiveList());
 		serv.delete(currentUsr);
 		return new ResponseEntity<>("L'utilisateur a bien été supprimmé", HttpStatus.OK);
+	}
+	
+	@PostMapping("/validateLogin") //TODO MDR
+	public ResponseEntity<Integer> authenticateUsr(@RequestBody String login) {
+		System.out.println(login);
+		JsonParser springParser = JsonParserFactory.getJsonParser();
+		Map<String, Object> map = springParser.parseMap(login);
+		
+		return new ResponseEntity<Integer>(usrRepo.validateLogin((String) map.get("username"),(String) map.get("password")).id, HttpStatus.OK);
 	}
 }

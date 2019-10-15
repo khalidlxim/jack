@@ -34,14 +34,28 @@ public class ItemController {
 	@Autowired ItemService serv;
 	@Autowired UsrService usrServ;
 	
+//	@GetMapping("")
+//	public ResponseEntity<ArrayNode> getAll() {
+//		ObjectMapper mapper = new ObjectMapper();
+//		ArrayNode displayList = mapper.createArrayNode();
+//		
+//		List<Item> listAll = serv.getAll();
+//		
+//		for(Item item:listAll) {
+//			displayList.add(item.toJsonNode());
+//		}
+//		
+//		return new ResponseEntity<ArrayNode>(displayList, HttpStatus.OK);
+//	}
+	
 	@GetMapping("")
-	public ResponseEntity<ArrayNode> getAll() {
+	public ResponseEntity<ArrayNode> getMyItems(@PathVariable int usrId) {
 		ObjectMapper mapper = new ObjectMapper();
 		ArrayNode displayList = mapper.createArrayNode();
 		
-		List<Item> listAll = serv.getAll();
+		GiveList myList = usrServ.getById(usrId).getGiveList();
 		
-		for(Item item:listAll) {
+		for(Item item:myList.getItems()) {
 			displayList.add(item.toJsonNode());
 		}
 		

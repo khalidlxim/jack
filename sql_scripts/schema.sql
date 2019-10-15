@@ -1,4 +1,4 @@
-create sequence main_seq start with 1;
+CREATE SEQUENCE main_seq START WITH 1;
 
 CREATE TABLE usr(
 	id INT PRIMARY KEY,

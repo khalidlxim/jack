@@ -60,6 +60,8 @@ public class UsrController {
 		
 		GiveList list = new GiveList();
 		
+		list.setItems(new ArrayList<Item>());
+		
 		usr.setGiveList(list);
 		usr.setLikedItems(new ArrayList<Item>());
 		
@@ -96,6 +98,7 @@ public class UsrController {
 	public ResponseEntity<String> deleteUsr(@PathVariable int id) {
 		Usr currentUsr = serv.getById(id);
 		if(!serv.existUsr(currentUsr)) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		listServ.delete(currentUsr.getGiveList());
 		serv.delete(currentUsr);
 		return new ResponseEntity<>("L'utilisateur a bien été supprimmé", HttpStatus.OK);
 	}

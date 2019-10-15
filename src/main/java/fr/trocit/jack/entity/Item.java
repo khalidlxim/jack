@@ -91,9 +91,15 @@ public class Item extends GenericEntity {
 		itemNode.put("title", this.title);
 		itemNode.put("photo", this.photo);
 		itemNode.put("description", this.description);
+<<<<<<< HEAD
 		itemNode.putArray("list");
 //		itemNode.set("list", this.list.toJsonNode());
 		
+=======
+//		itemNode.putArray("list");
+//		itemNode.set("list", this.list.toJsonNode());
+//		
+>>>>>>> devel
 //		ArrayNode categoryArrayNode = itemNode.putArray("categories");
 //		
 //		for (String category:this.categories) {

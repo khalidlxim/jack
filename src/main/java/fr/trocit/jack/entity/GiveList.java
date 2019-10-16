@@ -47,14 +47,14 @@ public class GiveList extends GenericEntity {
 		
 		listNode.put("id", this.id);
 		
-		listNode.putArray("owner");
-		listNode.set("owner", this.owner.toJsonNode());
-		
-		ArrayNode itemArrayNode = listNode.putArray("items");
-		
-		for(Item item:this.usrItems) {
-			itemArrayNode.add(item.toJsonNode());
-		}
+//		listNode.putArray("owner");
+//		listNode.set("owner", this.owner.toJsonNode());
+//		
+//		ArrayNode itemArrayNode = listNode.putArray("items");
+//		
+//		for(Item item:this.usrItems) {
+//			itemArrayNode.add(item.toJsonNode());
+//		}
 		
 		return listNode;
 	}
